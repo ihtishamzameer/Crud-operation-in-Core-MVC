@@ -27,7 +27,7 @@ namespace Crud_Operations.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Add(AddEmployeeViewModel AddEmployeeRequest)
+        public IActionResult Add(AddEmployeeViewModel AddEmployeeRequest)
         {
             if (AddEmployeeRequest != null)
             {
@@ -42,22 +42,22 @@ namespace Crud_Operations.Controllers
                     Address = AddEmployeeRequest.Address
                 };
 
-                await Mvcdemocontext.Employees.AddAsync(employee);
-                await Mvcdemocontext.SaveChangesAsync();
+               Mvcdemocontext.Employees.Add(employee);
+                Mvcdemocontext.SaveChanges();
             }
 
             return RedirectToAction("List");
         }
         [HttpGet]
-        public async Task<IActionResult> List()
+        public IActionResult List()
         {
-            var employees = await Mvcdemocontext.Employees.ToListAsync();
+            var employees = Mvcdemocontext.Employees.ToList();
             return View(employees);
         }       
         [HttpGet]
-        public async Task<IActionResult> View(Guid id)
+        public IActionResult View(Guid id)
         {
-            var employee = await Mvcdemocontext.Employees.FirstOrDefaultAsync(x => x.Id == id);
+            var employee = Mvcdemocontext.Employees.FirstOrDefault(x => x.Id == id);
             if(employee!=null)
             {
 
@@ -71,15 +71,15 @@ namespace Crud_Operations.Controllers
                     department = employee.department,
                     DateOfBirth = employee.DateOfBirth
                 };
-                return await Task.Run(()=>View("view",viewmodel)); 
+                return View("view");
 
             }
             return View(employee);
         }
         [HttpPost]
-        public async Task<IActionResult> View(UpdateEmployeeViewModel model)
+        public IActionResult View(UpdateEmployeeViewModel model)
         {
-            var employee = await Mvcdemocontext.Employees.FindAsync(model.Id);
+            var employee = Mvcdemocontext.Employees.Find(model.Id);
             if(employee!=null)
             {
                 employee.Name = model.Name;
@@ -89,20 +89,20 @@ namespace Crud_Operations.Controllers
                 employee.department = model.department;
                 employee.Salary = model.Salary;
 
-                await Mvcdemocontext.SaveChangesAsync();
+               Mvcdemocontext.SaveChanges();
 
                 return RedirectToAction("List");
             }
             return RedirectToAction("List");
         }
         [HttpPost]
-        public async Task<IActionResult> Delete(UpdateEmployeeViewModel model)
+        public IActionResult Delete(UpdateEmployeeViewModel model)
         {
-            var employee = await Mvcdemocontext.Employees.FindAsync(model.Id);
+            var employee = Mvcdemocontext.Employees.Find(model.Id);
             if(employee!=null)
             {
                 Mvcdemocontext.Employees.Remove(employee);
-                await Mvcdemocontext.SaveChangesAsync();
+                Mvcdemocontext.SaveChanges();
             }
             return RedirectToAction("List");
         }
