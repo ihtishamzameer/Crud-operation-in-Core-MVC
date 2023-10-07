@@ -1,0 +1,35 @@
+﻿@model List<Crud_Operations.Models.Domain.Employee>
+@{
+}
+<h1>All Employees</h1>
+<a href="../Employees/Add" class="btn btn-info w-15 mt-2 mb-2 font-weight-bold">Add New</a>
+<table class="table">
+    <thead class="table-bordered border-bottom">
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email Addres</td>
+            <td>Address</td>
+            <td>Salary</td>
+            <td>Department</td>
+            <td>Date Of Birth</td>
+            <td> </td>
+        </tr>
+    </thead>
+    <tbody class="border-bottom table-bordered">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Address</td>
+                <td>@item.Salary</td>
+                <td>@item.department</td>
+                <td>@item.DateOfBirth.ToString("dd/mm/yyy")</td>
+                <td><button  class="btn btn-info w-15 mt-2 mb-2 font-weight-bold"><a href="View/@item.Id" style="color:white;text-decoration:none;">View</a></button></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
