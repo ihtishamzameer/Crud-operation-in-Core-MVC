@@ -1,8 +1,0 @@
-SELECT TOP (1000) [Id]
-      ,[Name]
-      ,[Email]
-      ,[DateOfBirth]
-      ,[Salary]
-      ,[Address]
-      ,[department]
-  FROM [MVC_CORE].[dbo].[Employees]
